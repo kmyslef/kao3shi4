@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.example.dike.kao3shi4"
@@ -20,7 +20,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile project(path: ':LoadingDialog')
+    compile files('libs/okhttp-3.10.0.jar')
+    compile files('libs/okio-1.14.0.jar')
+    implementation 'com.google.code.gson:gson:2.2.4'
 }

@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="grid1">#F0FFF0</color>
+    <color name="grid2">#F0FFFF</color>
+    <color name="bottom">#FFF8DC</color>
+    <color name="anser">#E5E5E5</color>
+    <color name="readright">#C1FFC1</color>
+    <color name="readnomal">#FFFFFF</color>
 </resources>

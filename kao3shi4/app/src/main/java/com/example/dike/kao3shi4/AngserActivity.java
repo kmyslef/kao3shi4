@@ -1,38 +1,72 @@
 package com.example.dike.kao3shi4;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class AngserActivity extends AppCompatActivity {
+public class AngserActivity extends BaseActivity {
+
+    private List<QuestionsInfo.Question> detailarray;
+    ViewPager pager;
+    TextView textView;
+    int startnum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_angser);
 
-        ViewPager pager = (ViewPager)findViewById(R.id.viewPager);
+        pager = (ViewPager)findViewById(R.id.viewPager);
+        textView = (TextView)findViewById(R.id.textpage);
+        Button btn = (Button)findViewById(R.id.pagebtn);
 
-        ArrayList<AngserInfo> list = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++)
-        {
-            AngserInfo info = new AngserInfo();
-            info.setName("dfdslfkjdkslfjdlksf");
-            info.setNameId("123");
-            ArrayList<AngserOpionInfo> infoList = new ArrayList<>();
-            AngserOpionInfo listInfo = new AngserOpionInfo();
-            listInfo.setDetail("zcvxcvxcvcvcvxcvxcv");
-            listInfo.setOptionId("567");
-            infoList.add(listInfo);
-            info.setOptions(infoList);
-            list.add(info);
-        }
+        String objstr = getIntent().getStringExtra("obj");
+        startnum = getIntent().getIntExtra("startnum", 0);
 
 
-        AngserPageAdpter adpter = new AngserPageAdpter(list, AngserActivity.this);
+
+        QuestionsInfo data = GsonUtil.parseJsonWithGson(objstr, QuestionsInfo.class);
+        detailarray = data.getData();
+
+        String pagestr = String.valueOf(startnum + 1) + "/" + String.valueOf(startnum + detailarray.size());
+        textView.setText(pagestr);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+//        pager.setCurrentItem(3);
+
+        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                String pagestr = String.valueOf(startnum + position + 1) + "/" + String.valueOf(startnum + detailarray.size());
+                textView.setText(pagestr);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
+
+
+
+        AngserPageAdpter adpter = new AngserPageAdpter(detailarray, AngserActivity.this, startnum);
         pager.setAdapter(adpter);
 
     }

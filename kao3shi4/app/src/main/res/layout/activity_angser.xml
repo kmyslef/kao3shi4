@@ -14,4 +14,31 @@
         android:layout_width="match_parent"
         android:id="@+id/viewPager"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="20dp"
+            android:id="@+id/textpage" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="点击跳题"
+            android:id="@+id/pagebtn"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

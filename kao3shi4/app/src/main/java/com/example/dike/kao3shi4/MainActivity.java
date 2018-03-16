@@ -1,7 +1,6 @@
 package com.example.dike.kao3shi4;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +8,7 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,12 @@ public class MainActivity extends AppCompatActivity {
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(MainActivity.this, AngserActivity.class));
+                if (i == 0){
+                    startActivity(new Intent(MainActivity.this, jiheActivity.class));
+                }else{
+                    startActivity(new Intent(MainActivity.this, AngserActivity.class));
+                }
+
             }
         });
     }

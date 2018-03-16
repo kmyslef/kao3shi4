@@ -5,28 +5,34 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dike on 2017/10/17.
  */
 public class AngserPageAdpter extends PagerAdapter {
 
-    private ArrayList<AngserInfo> list;
+    private List<QuestionsInfo.Question> list;
     private Context context;
+    private Map<String, Object> viewmap;
+    private int startnum;
 
-    public AngserPageAdpter(ArrayList<AngserInfo> list, Context context) {
+    public AngserPageAdpter(List<QuestionsInfo.Question> list, Context context, int startnum) {
         this.list = list;
         this.context = context;
+        this.startnum = startnum;
+
+        viewmap = new HashMap<String, Object>();
     }
 
     @Override
     public int getCount() {
+
         return list.size();
     }
 
@@ -38,27 +44,44 @@ public class AngserPageAdpter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.angser_viewpager, container, false);
+        View view = null;
+        String key = String.valueOf(position);
+        View temView = (View)viewmap.get(key);
+        if (temView == null){
 
-        AngserInfo info = list.get(position);
-        ListView list = (ListView)view.findViewById(R.id.list);
-        AngserListAdpter adpter = new AngserListAdpter(info.getOptions(), context);
-        list.setAdapter(adpter);
+            view = LayoutInflater.from(context).inflate(R.layout.angser_viewpager, container, false);
+            QuestionsInfo.Question info = list.get(position);
+            ListView list = (ListView)view.findViewById(R.id.list);
+            AngserListAdpter adpter = new AngserListAdpter(info.getOptons(), context, info.getExplain(), info.getAnswerid());
+            list.setAdapter(adpter);
 
-        View header = LayoutInflater.from(context).inflate(R.layout.angser_cellheader, null, false);
-        TextView text = header.findViewById(R.id.head);
-        text.setText(info.getName());
-        list.addHeaderView(header);
+            View header = LayoutInflater.from(context).inflate(R.layout.angser_cellheader, null, false);
+            TextView text = header.findViewById(R.id.head);
+            String headinfo = String.valueOf(position + 1 + startnum) + "、" + info.getQuestion();
+            text.setText(headinfo);
+            list.addHeaderView(header);
 
-        container.addView(view);
+            container.addView(view);
+
+            viewmap.put(key, view);
+        }else{
+            view = temView;
+        }
+
+
 
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        View view = container.findViewById(R.id.pagerView);
-        container.removeView(view);
+//        String key = String.valueOf(position);
+//        View temView = (View)viewmap.get(key);
+//
+//        if (temView != null){
+//            container.removeView(temView);
+//        }
+
     }
 
 }

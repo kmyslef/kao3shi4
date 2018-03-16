@@ -9,8 +9,12 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="表头"
-        android:gravity="center"
+        android:gravity="left"
         android:background="#43BBEB"
         android:textColor="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="10dp"
         android:id="@+id/head"/>
 </LinearLayout>
